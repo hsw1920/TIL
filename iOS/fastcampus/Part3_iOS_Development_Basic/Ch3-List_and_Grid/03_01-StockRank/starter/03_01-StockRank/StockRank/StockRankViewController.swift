@@ -1,0 +1,50 @@
+//
+//  StockRankViewController.swift
+//  StockRank
+//
+//  Created by 홍승완 on 2022/07/07.
+//
+
+import UIKit
+
+class StockRankViewController: UIViewController {
+
+    
+    let stockList: [StockModel] = StockModel.list
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    // Data, Presentation, Layout
+    // Data - 어떤 데이터?
+    // Presentation - 셀을 어떻게 표현?
+    // Layout - 셀을 어떻게 배치?
+    
+    // protocol - 수행해야하는 규칙이 있음. => 특정 객체가 규칙을 수행해야함
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // dataSource, delegate는 protocol
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        
+    }
+}
+
+extension StockRankViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return stockList.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StockRankCollectionViewCell", for: indexPath)
+        return cell
+        
+        //return UICollectionViewCell()
+    }
+}
+
+extension StockRankViewController: UICollectionViewDelegate {
+    
+}
