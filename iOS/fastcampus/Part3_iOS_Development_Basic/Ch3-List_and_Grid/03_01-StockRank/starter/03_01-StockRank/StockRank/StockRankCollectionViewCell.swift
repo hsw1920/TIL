@@ -23,10 +23,28 @@ class StockRankCollectionViewCell: UICollectionViewCell {
         rankLabel.text = "\(stock.rank)"
         companyNameLabel.text = stock.name
         companyIconImageView.image = UIImage(named: stock.imageName)
-        companyPriceLabel.text = "\(stock.price) 원"
+        companyPriceLabel.text = "\(convertToCurrencyFormat(price: stock.price)) 원"
         diffLabel.text = "\(stock.diff)%"
+        
+            
+        let color: UIColor
+        if stock.diff > 0 {
+            color = UIColor.systemRed
+        } else {
+            color = UIColor.systemBlue
+        }
+        diffLabel.textColor = color
+        
     }
     
+    func convertToCurrencyFormat(price: Int) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal // 10진수
+        numberFormatter.maximumFractionDigits = 0 //소수점관련 보여주는것을 없앤다.
+        let result = numberFormatter.string(from: NSNumber(value: price))!
+        return result
+        
+    }
     
     
     
