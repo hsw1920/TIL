@@ -20,8 +20,16 @@ class FrameworkListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.dataSource = self
-        collectionView.delegate = self
+        collectionView.delegate = self // 위임자
         
+        // nav바 title 코드로 변경하기
+        navigationController?.navigationBar.topItem?.title = "Apple Framework!!!"
+        
+        if let flowlayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowlayout.estimatedItemSize = .zero
+        }
+        
+        collectionView.contentInset = UIEdgeInsets(top: 20, left: 16, bottom: 0, right: 16)
     }
 }
 
@@ -49,9 +57,21 @@ extension FrameworkListViewController: UICollectionViewDelegateFlowLayout {
         // collection View의 estimate size를-> none으로 바꿔주어야함
         
         let interItemSpacing: CGFloat = 10
+        let padding: CGFloat = 16
         
-        //collectionView의 너비
-        let width = (collectionView.bounds.width - interItemSpacing*2)/3
+        ///
+        ///
+        //collectionView의 너비 : 3열
+        let width = (collectionView.bounds.width - interItemSpacing * 2 - padding * 2) / 3
+        
+        //4열
+        //let width = (collectionView.bounds.width - interItemSpacing * 3 - padding * 2) / 4
+
+        //2열
+        //let width = (collectionView.bounds.width - interItemSpacing * 1 - padding * 2) / 2
+        ///
+        ///
+        
         let height = width*1.5
         
         return CGSize(width: width, height: height)
@@ -63,5 +83,12 @@ extension FrameworkListViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10
+    }
+}
+
+extension FrameworkListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let framework = list[indexPath.item]
+        print(">>> selected: \(framework.name)")
     }
 }
