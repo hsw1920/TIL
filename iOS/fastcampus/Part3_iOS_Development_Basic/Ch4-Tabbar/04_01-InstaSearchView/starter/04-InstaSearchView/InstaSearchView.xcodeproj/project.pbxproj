@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6039D2722887DF4400D14156 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6039D2712887DF4400D14156 /* SearchViewController.swift */; };
+		6039D2742887E4DE00D14156 /* ResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6039D2732887E4DE00D14156 /* ResultCell.swift */; };
+		60523870288947D800B30997 /* NewsFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6052386F288947D800B30997 /* NewsFeedViewController.swift */; };
+		605238722889486E00B30997 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605238712889486E00B30997 /* FeedCell.swift */; };
 		948CD22D2812F01B003DC0C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948CD22C2812F01B003DC0C4 /* AppDelegate.swift */; };
 		948CD22F2812F01B003DC0C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948CD22E2812F01B003DC0C4 /* SceneDelegate.swift */; };
 		948CD2342812F01B003DC0C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 948CD2322812F01B003DC0C4 /* Main.storyboard */; };
@@ -35,6 +39,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6039D2712887DF4400D14156 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		6039D2732887E4DE00D14156 /* ResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCell.swift; sourceTree = "<group>"; };
+		6052386F288947D800B30997 /* NewsFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedViewController.swift; sourceTree = "<group>"; };
+		605238712889486E00B30997 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		948CD2292812F01B003DC0C4 /* InstaSearchView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstaSearchView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		948CD22C2812F01B003DC0C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		948CD22E2812F01B003DC0C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -99,8 +107,12 @@
 			children = (
 				948CD22C2812F01B003DC0C4 /* AppDelegate.swift */,
 				948CD22E2812F01B003DC0C4 /* SceneDelegate.swift */,
+				6039D2712887DF4400D14156 /* SearchViewController.swift */,
+				6052386F288947D800B30997 /* NewsFeedViewController.swift */,
+				605238712889486E00B30997 /* FeedCell.swift */,
 				948CD2322812F01B003DC0C4 /* Main.storyboard */,
 				948CD2352812F01B003DC0C4 /* Assets.xcassets */,
+				6039D2732887E4DE00D14156 /* ResultCell.swift */,
 				948CD2372812F01B003DC0C4 /* LaunchScreen.storyboard */,
 				948CD23A2812F01B003DC0C4 /* Info.plist */,
 			);
@@ -255,8 +267,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6039D2722887DF4400D14156 /* SearchViewController.swift in Sources */,
 				948CD22D2812F01B003DC0C4 /* AppDelegate.swift in Sources */,
+				6039D2742887E4DE00D14156 /* ResultCell.swift in Sources */,
 				948CD22F2812F01B003DC0C4 /* SceneDelegate.swift in Sources */,
+				60523870288947D800B30997 /* NewsFeedViewController.swift in Sources */,
+				605238722889486E00B30997 /* FeedCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
