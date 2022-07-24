@@ -7,7 +7,7 @@
 
 import UIKit
 
-class OnboadingCell: UICollectionViewCell {
+class OnboardingCell: UICollectionViewCell {
     
     
     @IBOutlet weak var thumbnailImageView: UIImageView!
