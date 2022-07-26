@@ -13,74 +13,71 @@ class FrameworkListViewController: UIViewController {
     
     let list: [AppleFramework] = AppleFramework.list
     
-    // Data, Presentation, Layout
+    //AppleFramework을 Hashable하도록 프로토콜을 사용함 => <Section, AppleFramework>!,
+    var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
+    
+    // typealias(== #define)를 통해 Item을 AppleFramework대신 쓰도록함
+    typealias Item = AppleFramework
+    
+    enum Section { //enum 자체가 hashable함! -> 각각의 구분자들이 해싱이 되는지?
+        case main
+    }
+    
+    // [section [item]] [section [item]] [section [item]]
+    // section에 대한 구분타입
+    // item의 타입에 대해 따로 정의해주어야함
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView.dataSource = self
         collectionView.delegate = self
-        
         navigationController?.navigationBar.topItem?.title = "☀️ Apple Frameworks"
         
-        if let flowlayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowlayout.estimatedItemSize = .zero
-        }
+        // Presentation, Data, Layout
         
-        collectionView.contentInset = UIEdgeInsets(top: 20, left: 16, bottom: 0, right: 16)
-    }
-}
-
-extension FrameworkListViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return list.count
+        //diffable datasource
+        // - Presentation
+        dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FrameworkCell", for: indexPath) as? FrameworkCell else {
+                // 만들어지지않았을 때는 return nil을 한다.
+                return nil
+            }
+            // cell이 캐스팅이 되면은 아래와같이 cell을 return 시킨다.
+            // let data = datalist[indexPath.item] => item이 된다.
+            cell.configure(item)
+            return cell;
+        })
+        
+        // snapshot
+        // - Data
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(list, toSection: .main) // list라는 item들 집합을 .main이라는 section에 넣는다
+        dataSource.apply(snapshot) // dataSource에 snapshot을 적용한다
+        
+        // compositional Layout
+        // - Layout
+        collectionView.collectionViewLayout = layout()
+        
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FrameworkCell", for: indexPath) as? FrameworkCell else {
-            return UICollectionViewCell()
-        }
-        let framework = list[indexPath.item]
-        cell.configure(framework)
-        return cell
-    }
-}
-
-extension FrameworkListViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    private func layout() -> UICollectionViewCompositionalLayout {
+        //item
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.33), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize) //4. itemSize필요함
         
-        // 3열일때 계산
-        let interItemSpacing: CGFloat = 10
-        let padding: CGFloat = 16
-
-        let width = (collectionView.bounds.width - interItemSpacing * 2 - padding * 2) / 3
-        let height = width * 1.5
-        return CGSize(width: width, height: height)
+        //group
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.33))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 3) // 3. group만들려니 안에 넣을item필요함, groupSize도 필요함
         
-        
-//        // 2열일때 계산
-//        let interItemSpacing: CGFloat = 10
-//        let padding: CGFloat = 16
-//
-//        let width = (collectionView.bounds.width - interItemSpacing * 1 - padding * 2) / 2
-//        let height = width * 1.5
-//        return CGSize(width: width, height: height)
-//
-//        // 4열일때 계산
-//        let interItemSpacing: CGFloat = 10
-//        let padding: CGFloat = 16
-//
-//        let width = (collectionView.bounds.width - interItemSpacing * 3 - padding * 2) / 4
-//        let height = width * 1.5
-//        return CGSize(width: width, height: height)
+        //section
+        let section = NSCollectionLayoutSection(group: group) // 2. section만들려니 group필요함
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
+        //layout
+        let layout = UICollectionViewCompositionalLayout(section: section) // 1. layout만들려니 section필요함
+        return layout
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
-    }
 }
 
 extension FrameworkListViewController: UICollectionViewDelegate {

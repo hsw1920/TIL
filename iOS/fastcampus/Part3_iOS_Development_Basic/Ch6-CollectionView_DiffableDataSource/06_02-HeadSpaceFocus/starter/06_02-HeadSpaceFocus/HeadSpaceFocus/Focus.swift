@@ -7,6 +7,7 @@
 
 import Foundation
 
+//diffalbel 써야하므로 Hashable 프로토콜을 준수하고 있음
 struct Focus: Hashable {
     let title: String
     let description: String

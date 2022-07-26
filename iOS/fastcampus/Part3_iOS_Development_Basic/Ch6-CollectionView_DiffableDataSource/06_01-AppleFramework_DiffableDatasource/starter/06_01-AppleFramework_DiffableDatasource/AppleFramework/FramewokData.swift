@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct AppleFramework {
+//각각의 구분자들이 해싱이 가능하도록 해주는 프로토콜 -> Hashable
+struct AppleFramework: Hashable {
     let name: String
     let imageName: String
     let urlString: String
