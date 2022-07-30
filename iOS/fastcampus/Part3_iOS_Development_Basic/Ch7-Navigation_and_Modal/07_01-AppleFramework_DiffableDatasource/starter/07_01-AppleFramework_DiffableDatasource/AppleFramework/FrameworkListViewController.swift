@@ -41,6 +41,9 @@ class FrameworkListViewController: UIViewController {
         
         // layer
         collectionView.collectionViewLayout = layout()
+        
+        collectionView.delegate = self // 자신이 위임을 담당하겠다
+        
     }
     
     private func layout() -> UICollectionViewCompositionalLayout {
@@ -63,9 +66,18 @@ class FrameworkListViewController: UIViewController {
     }
 }
 
+// 위임자 안에 선택됐을 때 호출되는 메소드가 있음
 extension FrameworkListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let framework = list[indexPath.item]
-        print(">>> selected: \(framework.name)")
+        print(">>> selected: \(framework.name)") // 앱 내에서 클릭됐을시에 해당하는 framework가 어떤것인지 print
+        
+        // 우리가 띄우고 싶은것은 FrameworkDetailViewController 이다.
+        // -> storyborad에 접근해야함
+        let storyboard = UIStoryboard(name: "Detail", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "FrameworkDetailViewController") as! FrameworkDetailViewController // 구분자에 해당하는 vc를 가져옴
+        vc.framework = framework
+        present(vc, animated: true) // vc를 띄워줌
+        
     }
 }
